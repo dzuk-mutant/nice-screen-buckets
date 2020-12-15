@@ -86,7 +86,7 @@ Typically devices between ~6 and 7".
 
 
 ##### portable1
-Devices between 7 - 8".
+Devices between 7 - 8". This is generally quite an archaic device format nowadays, but this bucket also aligns with narrow tablet and desktop windows.
 
 | Device(s) | Viewport resolution (portrait) |
 | -- | -- |

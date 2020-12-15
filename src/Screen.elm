@@ -161,17 +161,20 @@ zero =
 
 {-| The type for storing all screen information.
 
-    { width :   { exact : Float
-                , broad : WidthBucket
-                , fine : FineWidthBucket
-                }
-    , height :  { exact : Float
-                , broad : HeightBucket
-                }
-    }
+```
+{ width :   { exact : Int
+            , broad : WidthBucket
+            , fine : FineWidthBucket
+            }
+, height :  { exact : Int
+            , broad : HeightBucket
+            }
+}
+```
 
 Widths are generally more important than height for determining
 screen layout so there's both broad and fine buckets for width.
+
 -}
 
 type alias Metrics =
@@ -185,7 +188,7 @@ Widths are generally more important than height for determining
 screen layout so there's both broad and fine buckets.
 -}
 type alias WidthMetrics =
-    { exact : Float
+    { exact : Int
     , broad : WidthBucket
     , fine : FineWidthBucket
     }
@@ -196,7 +199,7 @@ Heights are generally less important than height for determining
 screen layout so there's only broad buckets.
 -}
 type alias HeightMetrics =
-    { exact : Float
+    { exact : Int
     , broad : HeightBucket
     }
 
@@ -219,7 +222,7 @@ update msg model =
 
 ````
 -}
-set : Float -> Float -> Metrics -> Metrics
+set : Int -> Int -> Metrics -> Metrics
 set w h metrics =
     metrics
     |> setWidth w
@@ -227,7 +230,7 @@ set w h metrics =
 
 {-| Internal function that updates the width portion of Metrics.
 -}
-setWidth : Float -> Metrics -> Metrics
+setWidth : Int -> Metrics -> Metrics
 setWidth w metrics =
         let
             newWidth =
@@ -240,7 +243,7 @@ setWidth w metrics =
 
 {-| Internal function that updates the height portion of Metrics.
 -}
-setHeight : Float -> Metrics -> Metrics
+setHeight : Int -> Metrics -> Metrics
 setHeight h metrics =
         let
             newHeight =
@@ -282,24 +285,20 @@ type BucketAxis
     
 
 {-| Checks whether a value is in a bucket.
-
-Because screen sizes are floats and buckets are ints,
-screen sizes are rounded up for comparison.
 -}
-inBucket : Bucket -> Float -> Bool
-inBucket bucket pureV =
-    let
-        v = ceiling pureV
-    in
-        case bucket.min of
-            NoLimit ->
-                case bucket.max of
-                Defined max -> (v <= max)
-                NoLimit -> True -- if there's no limit at either end, it's always in the bucket.
-            Defined min ->
-                case bucket.max of
-                Defined max -> (v >= min && v <= max)
-                NoLimit -> (v >= min)
+inBucket : Bucket -> Int -> Bool
+inBucket bucket v =
+    case bucket.min of
+        NoLimit ->
+            case bucket.max of
+            Defined max -> (v <= max)
+            NoLimit -> True -- if there's no limit at either end, it's always in the bucket.
+        Defined min ->
+            case bucket.max of
+            Defined max -> (v >= min && v <= max)
+            NoLimit -> (v >= min)
+
+
 
 {-| Internal function that will produce a Boundary that is -1 of the minimum boundary of the given Bucket.
 If the minimum is not Definite, then it will just return NoLimit.
@@ -527,12 +526,9 @@ wide = toMediaQuery wideBkt
 {-| Takes an int representing screen width in pixels
 and converts it into a (broad) screen width bucket.
 
- Buckets boundaries are Ints, so this function rounds the
- screen width Float *up*.
-
 https://github.com/dzuk-mutant/Helium/blob/master/docs/display.md#display-width-groups
 -}
-toWidthBucket : Float -> WidthBucket
+toWidthBucket : Int -> WidthBucket
 toWidthBucket w =
     if inBucket handsetBkt w then
         Handset
@@ -542,15 +538,12 @@ toWidthBucket w =
         Wide
 
 
-{-| Takes a Float representing screen width and 
+{-| Takes a Int representing screen width and 
  and converts it into a fine screen width bucket.
-
- Buckets boundaries are Ints, so this function rounds the
- screen width Float *up*.
 
 https://github.com/dzuk-mutant/Helium/blob/master/docs/display.md#display-width-groups
 -}
-toFineWidthBucket : Float -> FineWidthBucket
+toFineWidthBucket : Int -> FineWidthBucket
 toFineWidthBucket w =
     if inBucket handset1Bkt w then
         Handset1
@@ -620,15 +613,18 @@ tallBkt =   { min = Defined 864 -- 16 * 54
 
 
 
-{-| CSS Media query covering the limited height bucket. -}
+{-| CSS Media query covering the limited height bucket.
+-}
 limited : Media.MediaQuery
 limited = toMediaQuery limitedBkt
 
-{-| CSS Media query covering the medium height bucket. -}
+{-| CSS Media query covering the medium height bucket.
+-}
 medium : Media.MediaQuery
 medium = toMediaQuery mediumBkt
 
-{-| CSS Media query covering the tall height bucket. -}
+{-| CSS Media query covering the tall height bucket.
+-}
 tall : Media.MediaQuery
 tall = toMediaQuery tallBkt
 
@@ -640,11 +636,11 @@ tall = toMediaQuery tallBkt
 and converts it into a screen height bucket.
 
  Buckets boundaries are Ints, so this function rounds the
- screen width Float *up*.
+ screen width Int *up*.
 
 https://github.com/dzuk-mutant/Helium/blob/master/docs/display.md#display-height-groups
 -}
-toHeightBucket : Float -> HeightBucket
+toHeightBucket : Int -> HeightBucket
 toHeightBucket h =
     if inBucket limitedBkt h then
         Limited
