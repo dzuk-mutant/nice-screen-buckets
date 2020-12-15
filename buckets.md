@@ -2,8 +2,13 @@
 
 The boundaries were developed from researching a lot of different devices' virtual display sizes as seen by a web browser.
 
+---
 
-### Display width groups
+## Width buckets
+
+Because width plays a much larger role in web interface responsiveness than height, Width buckets have two different levels of fineness.
+
+### Broad
 
 | display bucket | min width | max width | analogues |
 |---|--|--|--|
@@ -12,7 +17,9 @@ The boundaries were developed from researching a lot of different devices' virtu
 | wide | 1056px | none | Large landscape tablet, laptop, desktop, or TV contexts.  |
 
 
-### Display width areas
+### Fine
+
+These buckets are sub-levels of the broad buckets and can help you understand more clearly the user's ergonomic context.
 
 | display bucket | min width | max width | analogues |
 |---|--|--|--|
@@ -27,7 +34,7 @@ The boundaries were developed from researching a lot of different devices' virtu
 
 
 
-### Display height groups
+## Height buckets
 
 These correspond to handset, portable1 and portable3 respectively but in height, not width.
 
@@ -41,7 +48,9 @@ These correspond to handset, portable1 and portable3 respectively but in height,
 
 ---
 
-### Device examples:
+## Device examples
+
+Here are how the width buckets map out to specific devices.
 
 ##### handset1
 Typically devices below 4.7".
