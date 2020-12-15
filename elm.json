@@ -1,7 +1,7 @@
 {
     "type": "package",
-    "name": "dzuk-mutant/helium-screen",
-    "summary": "Screen metrics buckets and handling",
+    "name": "dzuk-mutant/nice-screen-buckets",
+    "summary": "Fine screen tracking and screen buckets for your Elm interfaces. ",
     "license": "BSD-3-Clause",
     "version": "1.0.0",
 
