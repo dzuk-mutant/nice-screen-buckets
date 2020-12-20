@@ -1,12 +1,9 @@
-# Buckets
+# Pre-built buckets
 
-The boundaries were developed from researching a lot of different devices' virtual display sizes as seen by a web browser.
-
----
 
 ## Width buckets
 
-Because width plays a much larger role in web interface responsiveness than height, Width buckets have two different levels of fineness.
+Because width plays a much larger role in web interface responsiveness than height, Width buckets have two different levels of detail.
 
 ### Broad
 

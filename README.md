@@ -1,18 +1,50 @@
 # Nice Screen Buckets
 
-A detailed, encapsulated way of tracking and storing browser screen data and comparing that with a series of pre-built buckets to determine the ergonomic and presentation needs of your interfaces.
+A detailed, encapsulated way of tracking and storing browser screen size and comparing that with a series of boundaries (called buckets) so you can easily and precisely change functionality and presentation based on screen size.
 
-You can use these buckets in a variety of ways:
-- As elm-css Media Queries.
-- As normal Elm model data.
-- In your own custom ways with the raw bucket data.
+You can implement this in a couple of different ways with the same data types:
 
-Each of the buckets has been researched and designed around different categories of displays that keep recurring throughout different classes of devices. They are fine-tuned as well so you can provide very nice and seamless layouts for your users regardless of what devices they may use.
 
-[**Detailed information about the buckets.**](buckets.md)
+### As normal Elm model data
+```
+Html.div
+    []
+    -- show mobile menu if screen width is small enough
+    [   ( if Screen.isIn [ handset, portable1 ] model.screen then
+            Html.div [] [ Html.text "menu" ]
+          else
+            []
+        )   
+    ]
+```
+
+### As elm-css Media Queries
+
+```
+css [ Screen.withMedia [ handset, portable1, portable2 ]
+        [ height (px 32)
+        , overflow hidden
+        ]
+
+    , Screen.withMedia [ portable3, wide ]
+        [ width (px 192)
+        , padding4 (px 64) (px 32) (px 32) (px 48)
+        ]
+    ]
+```
+
+In addition to making your own buckets, this package comes with a series of pre-built buckets. Each of the buckets have been thoroughly researched and designed around different categories of displays that keep recurring throughout different classes of devices.
+
+[**Detailed information about the pre-built buckets.**](buckets.md) (You need to be on the GitHub repo to see this link.)
 
 ----
 
 ## License
 
 This package is licensed [BSD-3-Clause](license.md).
+
+
+----
+
+## Buckets
+
