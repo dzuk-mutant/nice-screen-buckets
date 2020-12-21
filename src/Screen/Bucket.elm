@@ -94,11 +94,32 @@ stepBelow bucket =
 
 
 
-{-| A function that converts a Bucket into an elm-css MediaQuery.
+{-| A function that converts a Bucket into an elm-css MediaQuery
+that covers the boundaries given by the bucket at the correct axis.
+
+These media queries can be stacked in a list wth functions such
+as withMedia, so you can cover larger areas with multiple
+contiguous buckets.
 
 This function exists for possible edge cases that you might have. 
 If you want to use buckets as media queries in a typical way,
 you'll probably want to look at `Screen.withMedia` instead.
+
+```
+tablet : Bucket
+tablet = Bucket.create Width (Defined 512) (stepBelow desktop) 
+
+tabletMq : MediaQuery
+tabletMq = Bucket.toMediaQuery tablet
+-- produces: only screen [ minWidth (px 512), maxWidth (px 1051) ]
+
+desktop : Bucket
+desktop = Bucket.create Width (Defined 1052) NoLimit
+
+desktopMq : MediaQuery
+desktopMq = Bucket.toMediaQuery desktop
+-- produces: only screen [ minWidth (px 1052) ]
+```
 -}
 toMediaQuery : Bucket -> MediaQuery
 toMediaQuery bucket =
