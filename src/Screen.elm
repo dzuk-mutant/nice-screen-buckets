@@ -53,8 +53,7 @@ Details about what sizes these buckets are and what they're for can be found in 
 
 ## Width Buckets
 Because width tends to be more important than height in creating
-responsive interfaces, width buckets have more detail, with have two
-different parallel levels of detail for convenience.
+responsive interfaces, width buckets have more detail, with two parallel levels of detail for convenience.
 
 ### Broad buckets
 @docs handset, portable, wide
@@ -102,9 +101,7 @@ isIn buckets metrics =
 
 
 
-{-| Converts a list of buckets and a list of elm-css Styles into a Style
-that become active depending on whether or not the screen size
-is in the given buckets.
+{-| Wraps styles within a CSS media query that matches the given Screen Buckets.
 
 It performs the equivalent of `Css.Media.withMedia`.
 
@@ -114,12 +111,19 @@ css [ Screen.withMedia [ handset, portable1, portable2 ]
         , overflow hidden
         ]
 
+    
     , Screen.withMedia [ portable3, wide ]
         [ width (px 192)
         , padding4 (px 64) (px 32) (px 32) (px 48)
         ]
     ]
+    {- this creates a media query that looks like this:
+       withMedia [ only screen [ minWidth (px 864), maxWidth (px 1051) ]
+                 , only screen [ minWidth (px 1052) ]
+                 ]
+    -}
 ```
+See `Screen.Bucket.toMediaQuery` to see how the media queries for each bucket get made.
 
 This doesn't use your model's `Metrics` because CSS media
 queries don't get checked against the screen size within Elm,
