@@ -35,8 +35,6 @@ css [ Screen.withMedia [ handset, portable1, portable2 ]
 
 In addition to making your own buckets, this package comes with a series of pre-built buckets. Each of the buckets have been thoroughly researched and designed around different categories of displays that keep recurring throughout different classes of devices.
 
-[**Detailed information about the pre-built buckets.**](buckets.md) (You need to be on the GitHub repo to see this link.)
-
 ----
 
 ## License

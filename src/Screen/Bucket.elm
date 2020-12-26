@@ -1,12 +1,19 @@
-module Screen.Bucket exposing (Bucket, Boundary(..), Axis(..), create, stepBelow, toMediaQuery)
+module Screen.Bucket exposing ( Bucket
+                              , Boundary(..)
+                              , Axis(..)
+                              , create
+                              , encompass
+                              , stepBelow
+                              , toMediaQuery
+                              )
 
 {-| A module for creating sets of screen boundaries (here, called 'buckets') for comparing against the user's screen size.
 
 ## Types
 @docs Bucket, Boundary, Axis
 
-## Functions
-@docs create, stepBelow
+## Creating buckets
+@docs create, encompass, stepBelow
 
 ## Conversions
 @docs toMediaQuery
@@ -47,16 +54,16 @@ type Axis
 
 Consider using `stepBelow` in conjunction with this function to create
 buckets that neatly slot next to each other.
-```
-mobile : Bucket
-mobile = Bucket.create Width NoLimit (stepBelow tablet) 
 
-tablet : Bucket
-tablet = Bucket.create Width (Defined 412) (stepBelow desktop) 
+    mobile : Bucket
+    mobile = Bucket.create Width NoLimit (stepBelow tablet) 
 
-desktop : Bucket
-desktop = Bucket.create Width (Defined 1052) NoLimit
-```
+    tablet : Bucket
+    tablet = Bucket.create Width (Defined 412) (stepBelow desktop) 
+
+    desktop : Bucket
+    desktop = Bucket.create Width (Defined 1052) NoLimit
+
 -}
 
 create : Axis -> Boundary -> Boundary -> Bucket
@@ -66,6 +73,25 @@ create axis min max =
     , axis = axis
     }
 
+{-| Creates a bucket that encompasses the minimum of the
+first bucket and the maximum of the second bucket.
+
+Useful when you want to create buckets that are larger groupings of smaller buckets.
+
+    wide1 : Bucket
+    wide1 = Bucket.create Width (Defined 1056) (stepBelow wide2)
+
+    wide2 : Bucket
+    wide2 = Bucket.create Width (Defined 1440) NoLimit
+
+    wide : Bucket
+    wide = Bucket.encompass Width wide1 wide2
+    -- creates a bucket between 1056 and NoLimit
+
+-}
+encompass : Axis -> Bucket -> Bucket -> Bucket
+encompass axis minBucket maxBucket =
+    create axis minBucket.min maxBucket.max
 
 
 {-| Will produce a Boundary that is -1 of the minimum
@@ -77,13 +103,12 @@ Useful when you want to create buckets that neatly
 slot next to each other.
 
 
-```
-tablet : Bucket
-tablet = Bucket.create Width (Defined 512) (stepBelow desktop) 
+    tablet : Bucket
+    tablet = Bucket.create Width (Defined 512) (stepBelow desktop) 
 
-desktop : Bucket
-desktop = Bucket.create Width (Defined 1052) NoLimit
-```
+    desktop : Bucket
+    desktop = Bucket.create Width (Defined 1052) NoLimit
+
 -}
 stepBelow : Bucket -> Boundary
 stepBelow bucket =
@@ -105,21 +130,21 @@ This function exists for possible edge cases that you might have.
 If you want to use buckets as media queries in a typical way,
 you'll probably want to look at `Screen.withMedia` instead.
 
-```
-tablet : Bucket
-tablet = Bucket.create Width (Defined 512) (stepBelow desktop) 
 
-tabletMq : MediaQuery
-tabletMq = Bucket.toMediaQuery tablet
--- produces: only screen [ minWidth (px 512), maxWidth (px 1051) ]
+    tablet : Bucket
+    tablet = Bucket.create Width (Defined 512) (stepBelow desktop) 
 
-desktop : Bucket
-desktop = Bucket.create Width (Defined 1052) NoLimit
+    tabletMq : MediaQuery
+    tabletMq = Bucket.toMediaQuery tablet
+    -- produces: only screen [ minWidth (px 512), maxWidth (px 1051) ]
 
-desktopMq : MediaQuery
-desktopMq = Bucket.toMediaQuery desktop
--- produces: only screen [ minWidth (px 1052) ]
-```
+    desktop : Bucket
+    desktop = Bucket.create Width (Defined 1052) NoLimit
+
+    desktopMq : MediaQuery
+    desktopMq = Bucket.toMediaQuery desktop
+    -- produces: only screen [ minWidth (px 1052) ]
+
 -}
 toMediaQuery : Bucket -> MediaQuery
 toMediaQuery bucket =

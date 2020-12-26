@@ -41,14 +41,12 @@ zero =
 `Browser.Events.onResize` and updates the screen metrics structure based
 on those values.
 
-````
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        ScreenResize w h ->
-            ( { model | screen = Screen.set w h model.screen }, Cmd.none )
+    update : Msg -> Model -> ( Model, Cmd Msg )
+    update msg model =
+        case msg of
+            ScreenResize w h ->
+                ( { model | screen = Screen.Metrics.set w h model.screen }, Cmd.none )
 
-````
 -}
 set : Int -> Int -> Metrics -> Metrics
 set w h metrics =
