@@ -339,10 +339,10 @@ limited = Bucket.create Height NoLimit (stepBelow medium)
 {-| A height bucket representing small and regular tablets in
 landscape. The amount of vertical space is restricted.
 
-This buckets bounds are the same as `portable1` - `portable3` but in height.
+This buckets bounds are the same as `portable1` - `portable2` but in height.
 -}
 medium : Bucket
-medium = Bucket.create Height portable.min (stepBelow tall)
+medium = Bucket.create Height portable2.max (stepBelow tall)
 
 
 {-| A height bucket representing large landscape tablet,

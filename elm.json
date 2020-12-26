@@ -3,7 +3,7 @@
     "name": "dzuk-mutant/nice-screen-buckets",
     "summary": "Track your browser's screen size and compare them against set boundaries.",
     "license": "BSD-3-Clause",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "exposed-modules": [
         "Screen",
         "Screen.Metrics",
