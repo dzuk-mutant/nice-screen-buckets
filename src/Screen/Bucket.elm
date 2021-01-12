@@ -104,13 +104,13 @@ Consider using `stepBelow` in conjunction with this function to create
 buckets that neatly slot next to each other.
 
     mobile : Bucket
-    mobile = create Width NoLimit (stepBelow tablet) 
+    mobile = Bucket.create Width NoLimit (stepBelow tablet) 
 
     tablet : Bucket
-    tablet = create Width (Defined 412) (stepBelow desktop) 
+    tablet = Bucket.create Width (Defined 412) (stepBelow desktop) 
 
     desktop : Bucket
-    desktop = create Width (Defined 1052) NoLimit
+    desktop = Bucket.create Width (Defined 1052) NoLimit
 
 -}
 
@@ -127,13 +127,13 @@ first bucket and the maximum of the second bucket.
 Useful when you want to create buckets that are larger groupings of smaller buckets.
 
     wide1 : Bucket
-    wide1 = create Width (Defined 1056) (stepBelow wide2)
+    wide1 = Bucket.create Width (Defined 1056) (stepBelow wide2)
 
     wide2 : Bucket
-    wide2 = create Width (Defined 1440) NoLimit
+    wide2 = Bucket.create Width (Defined 1440) NoLimit
 
     wide : Bucket
-    wide = encompass Width wide1 wide2
+    wide = Bucket.encompass Width wide1 wide2
     -- creates a bucket between 1056 and NoLimit
 
 -}
@@ -152,10 +152,10 @@ slot next to each other.
 
 
     tablet : Bucket
-    tablet = create Width (Defined 512) (stepBelow desktop) 
+    tablet = Bucket.create Width (Defined 512) (stepBelow desktop) 
 
     desktop : Bucket
-    desktop = create Width (Defined 1052) NoLimit
+    desktop = Bucket.create Width (Defined 1052) NoLimit
 
 -}
 stepBelow : Bucket -> Boundary
@@ -180,14 +180,14 @@ you'll probably want to look at `Screen.withMedia` instead.
 
 
     tablet : Bucket
-    tablet = create Width (Defined 512) (stepBelow desktop) 
+    tablet = Bucket.create Width (Defined 512) (stepBelow desktop) 
 
     tabletMq : MediaQuery
     tabletMq = Bucket.toMediaQuery tablet
     -- produces: only screen [ minWidth (px 512), maxWidth (px 1051) ]
 
     desktop : Bucket
-    desktop = create Width (Defined 1052) NoLimit
+    desktop = Bucket.create Width (Defined 1052) NoLimit
 
     desktopMq : MediaQuery
     desktopMq = Bucket.toMediaQuery desktop
