@@ -41,8 +41,3 @@ In addition to making your own buckets, this package comes with a series of pre-
 
 This package is licensed [BSD-3-Clause](license.md).
 
-
-----
-
-## Buckets
-

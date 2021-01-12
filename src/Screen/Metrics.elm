@@ -26,8 +26,7 @@ type alias Metrics =
 
 {-| Makes a starting metrics structure where all the values are 0.
 
-Use this in your initial model, but the model must be properly
-initialised afterwards.
+Use this as an initial value for your model that you can then initialise from.
 -}
 zero : Metrics
 zero =
