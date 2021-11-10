@@ -30,7 +30,7 @@ wherever possible.
 
 
 import Css exposing (Style)
-import Css.Media exposing (withMedia)
+import Css.Media
 import Screen.Metrics exposing (Metrics)
 import Screen.Bucket as Bucket exposing (Bucket, Axis(..), Boundary(..))
 
