@@ -54,7 +54,7 @@ are not numbered, and fine buckets, which are numbered.
 @docs handset, handset1, handset2, handset3
 
 ### Portable
-@docs portable, portable1, portable2, portable3
+@docs portable, portable1, portable2
 
 ### Wide
 @docs wide, wide1, wide2
