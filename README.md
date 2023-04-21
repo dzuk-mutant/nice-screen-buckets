@@ -20,6 +20,8 @@ Html.div
 
 ### As elm-css Media Queries
 
+**Note: this package relies on the dzuk-mutant fork of elm-css.**
+
 ```
 css [ Screen.withMedia [ handset, portable1, portable2 ]
         [ height (px 32)

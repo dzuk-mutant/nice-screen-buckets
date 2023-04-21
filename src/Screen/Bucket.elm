@@ -14,7 +14,6 @@ module Screen.Bucket exposing ( Bucket
                               , portable
                               , portable1
                               , portable2
-                              , portable3
 
                               , wide
                               , wide1
@@ -250,16 +249,15 @@ handset = encompass Width handset1 handset3
 This represents the smallest handsets available in recent memory.
 This typically means devices below 4.7" in screen size.
 
-Many of the devices in this bucket may be becoming archaic
-(by 2020 standards), but it's still a useful bucket,
-especially if you want to be inclusive to particularly small
-screen sizes, which require particular attention to make
-work in responsive design.
+This has become quite a niche use case, but the users of these
+devices need particular catering to to make web layouts work,
+especially by making side margins not too big.
+
+This is also relevant to web views in Apple Watch.
 
 Device examples (in portrait):
-- Apple iPhone 1-3G - 320 x 480 (@1x)
-- Apple iPhone 4, 4S - 320 x 480 (@2x)
-- Apple iPhone 5, 5c, 5s, SE (1st gen) - 320 x 568 (@2x)
+- Apple iPhone 5s, SE (1st gen) - 320 x 568 
+- Apple Watch (web views are rendered around 320px wide with double-size fonts)
 -}
 handset1 : Bucket
 handset1 = create Width NoLimit (stepBelow handset2)
@@ -273,13 +271,15 @@ Nowadays, this typically means devices between
 5" - 6" in screen size.
 
 Device examples (in portrait):
-- Apple iPhone 12 Mini - 360 x 780 (@3x)
-- Apple iPhone 6-8, SE (2nd gen) - 375 x 687 (@2x)
-- Apple iPhone X, XS, 11 Pro - 375 x 812 (@3x)
-- Sony Xperia XZ2 Compact - 360 x 720
+- Apple iPhone 12-13 Mini - 360 x 780px
+- Samsung Galaxy S20, S21, S21+ - 360 x 800px
+- Samsung Z Flip3 - 360 x 880px
+- Apple iPhone 6-8, SE (2nd gen) - 375 x 667px
+- Apple iPhone X, XS, 11 Pro - 375 x 812px
+
 -}
 handset2 : Bucket
-handset2 = create Width (Defined 352) (stepBelow handset3)
+handset2 = create Width (Defined 340) (stepBelow handset3)
 
 
 {-| A width bucket that's between 384 and 511px.
@@ -289,16 +289,16 @@ operable with one hand. Nowadays this typically means devices
 between 6" - 7" in screen size.
 
 Device examples (in portrait): 
-- Apple iPhone 6-8 Plus - 414 x 736 (@2x)
-- Apple iPhone XR, XS Max, 11, 11 Pro Max - 414 x 896
-- Google Pixel XL - 412 x 732
-- Google Pixel 3 - 411 x 823 (@2.625x)
-- Google Pixel 3 XL - 411 x 846 (@3x)
-- Samsung Galaxy S9+ - 411 x 846 
-- Sony Xperia 1 - 411 x 960 (@4x)
+- Apple iPhone 6-8 Plus - 414 x 736px
+- Apple iPhone 12-13, 12-13 Pro - 390 x 844px
+- Samsung Galaxy S20+ - 384 x 854px
+- Samsung Galaxy S10+, Note 10, Note 10+ - 412 x 869px
+- Apple iPhone XR, XS Max, 11, 11 Pro Max - 414 x 896px
+- Apple iPhone 12-13 Pro - 428 - 926px
+- Sony Xperia 1 - 411 x 960
 -}
 handset3 : Bucket
-handset3 = create Width (Defined 384) (stepBelow portable1)
+handset3 = create Width (Defined 378) (stepBelow portable1)
 
 
 
@@ -314,50 +314,23 @@ handset3 = create Width (Defined 384) (stepBelow portable1)
 - medium-sized windows in tablet splitscreen modes and desktops.
 -}
 portable : Bucket
-portable = encompass Width portable1 portable3
+portable = encompass Width portable1 portable2
 
 
-{-| A width bucket that's between 512 and 639px.
+{-| A width bucket that's between 512 and 896px.
 
-This encompasses the relatively archaic 7"/'flyer'
-tablet format in portrait, as well as particularly
-narrow windows in desktop and certain splitscreen tablet views.
-
-Device examples (in portrait):
-- Google Nexus 7 (2013) - 600 x 960 (@3x)
-
+This encompasses smaller tablets (typically between 8-10" in size).
 -}
 portable1 : Bucket
 portable1 = create Width (Defined 512) (stepBelow portable2)
 
-{-| A width bucket that's between 640 and 863px.
+{-| A width bucket that's between 896 and 863px.
 
 This encompasses the most common tablet sizes in
 portrait. Typically between 8" and 11".
-
-Device examples (in portrait):
-- Apple iPad 9.7", mini - 768 x 1024 (they are different sizes but a web browser doesn't see them any differently)
-- Apple iPad 10.2" - 810 x 1080
-- Apple iPad Pro (2015-2017) 10.5" - 834 x 1112
-- Apple iPad Pro (2018-2020) 11" - 834 x 1194
-- Google Pixel C - 900 x 1280
 -}
 portable2 : Bucket
-portable2 = create Width (Defined 640) (stepBelow portable3)
-
-
-{-| A width bucket that's between 864 and 1055px.
-
-This encompasses the largest tablets in portrait. Typically around 13".
-
-Device examples (in portrait):
-- Apple iPad Pro (2015-2017, 2018-2020) 12.9" - 1024 x 1366
-- Microsoft Surface Pro 2017 - 912 x 1368
-
--}
-portable3 : Bucket
-portable3 = create Width (Defined 864) (stepBelow wide1)
-
+portable2 = create Width (Defined 896) (stepBelow wide1)
 
 
 
@@ -430,14 +403,14 @@ landscape. The amount of vertical space is restricted.
 This buckets bounds are the same as `portable1` - `portable2` but in height.
 -}
 medium : Bucket
-medium = create Height portable2.max (stepBelow tall)
+medium = create Height portable1.max (stepBelow tall)
 
 
 {-| A height bucket representing large landscape tablet,
 laptop or desktop contexts. The amount of vertical space is
 generally ample.
 
-The minimum of this bucket is the same as `portable3`, but in height.
+The minimum of this bucket is the same as `portable2`, but in height.
 -}
 tall : Bucket
-tall = create Height portable3.min NoLimit
+tall = create Height portable2.min NoLimit
