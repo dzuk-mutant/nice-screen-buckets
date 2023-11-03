@@ -3,7 +3,7 @@
     "name": "dzuk-mutant/nice-screen-buckets",
     "summary": "Track your browser's screen size and compare them against set boundaries.",
     "license": "BSD-3-Clause",
-    "version": "6.0.0",
+    "version": "6.0.1",
     "exposed-modules": [
         "Screen",
         "Screen.Metrics",
@@ -11,7 +11,7 @@
     ],
     "elm-version": "0.19.0 <= v < 0.20.0",
     "dependencies": {
-        "dzuk-mutant/elm-css": "2.0.0 <= v < 3.0.0",
+        "dzuk-mutant/elm-css": "3.0.0 <= v < 4.0.0",
         "elm/core": "1.0.0 <= v < 2.0.0"
     },
     "test-dependencies": {
